@@ -1,5 +1,6 @@
 #include "converter.h"
 
+#ifdef USE_ASSIMP
 #include <Inventor/nodes/SoGroup.h>
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoTexture2.h>
@@ -554,3 +555,4 @@ void Converter::clear() {
 
     materialsMap_.clear();
 }
+#endif

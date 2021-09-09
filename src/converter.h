@@ -1,7 +1,9 @@
 #ifndef CONVERTER_H
 #define CONVERTER_H
 
+#ifdef USE_ASSIMP
 #include <assimp/scene.h>
+
 
 #include <Inventor/actions/SoCallbackAction.h>
 
@@ -215,5 +217,5 @@ protected:
 
     void clear();
 };
-
+#endif
 #endif // CONVERTER_H

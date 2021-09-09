@@ -89,8 +89,10 @@ bool exportScene(const std::string filename, SoSeparator *root, std::string *err
     return false;
 }
 
+std::vector<std::pair<std::string,std::string> > assimpExportedFormats();
 
-std::vector<std::pair<std::string,std::vector<std::string> > > assimpExportedFormats() {
-    return std::vector<std::pair<std::string,std::vector<std::string> > >();
+
+std::vector<std::pair<std::string,std::string> > assimpExportedFormats() {
+    return std::vector<std::pair<std::string,std::string> >();
 }
 #endif // USE_ASSIMP
