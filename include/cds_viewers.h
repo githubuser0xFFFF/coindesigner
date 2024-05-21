@@ -110,10 +110,10 @@ public:
 	//Comportamiento del visualizador ante el picado
 	QAction *pickAction;
 
-	///Separador intermedio
+	///Intermediate separator
 	SoSeparator *myRoot;
 
-	///Separador para las marcas
+	///Separator for markings
 	SoSeparator *mark_sep;
 
 	///Constructor

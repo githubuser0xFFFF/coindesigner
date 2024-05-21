@@ -32,7 +32,7 @@ void pick_cb (void *ud, SoEventCallback * n)
 }
 
   
-/*! Callback del evento raypick, que muestra informacion sobre el punto apuntado por el raton.*/
+/*! Callback of the raypick event, which displays information about the point pointed to by the mouse.*/
 template <class SOTYPEVIEWER>
 void CdsEditorTemplate<SOTYPEVIEWER>::pickCallback (SoEventCallback * n)
 {
@@ -42,22 +42,22 @@ void CdsEditorTemplate<SOTYPEVIEWER>::pickCallback (SoEventCallback * n)
   //Numero de facetas seleccionadas para parchear
   //static int numFacetasPatch = 0;
 
- //Identificamos la ventana, el visor y la barra de status
+ //We identify the window, the viewer and the status bar.
  QStatusBar *statusBar = this->statusBar();
 
  //qDebug("%p->%s(%p) -> state=%d button=%d", this, __FUNCTION__, n, mbe->getState(),  mbe->getButton() ) ;
 
-  //Miramos si queremos alguna opcion de picado
+  //We see if we want a chopping option.
  if (this->pickAction == Ui.actionNone)
 	 return;
 
  bool infoAction = this->pickAction == Ui.actionInfo;
 
- //Comprobamos que se ha pulsado el boton izquierdo del raton
+ //Check that the left mouse button has been pressed.
  if (mbe->getState() == SoButtonEvent::DOWN && mbe->getButton() == SoMouseButtonEvent::BUTTON1 ) 
  {
 
-    //Aseguramos que mark_sep no esta colgado de myRoot, para evitar picar sobre la marca
+    //Make sure mark_sep is not hung from myRoot, to avoid overlapping the mark.
     while (myRoot->findChild(mark_sep) > -1) 
        myRoot->removeChild(mark_sep);
 
@@ -65,7 +65,7 @@ void CdsEditorTemplate<SOTYPEVIEWER>::pickCallback (SoEventCallback * n)
     rp.setPoint(mbe->getPosition());
     rp.apply(this->getSceneManager()->getSceneGraph());
 
-	//Miramos si hemos pinchado sobre algun elemento
+	//We check if we have clicked on any element
     SoPickedPoint * point = rp.getPickedPoint();
     if (point == NULL) 
 	{
@@ -78,32 +78,32 @@ void CdsEditorTemplate<SOTYPEVIEWER>::pickCallback (SoEventCallback * n)
     }
     n->setHandled();
 
-    //Extraemos las coordenadas del objeto apuntado
+    //Extract the coordinates of the pointed object
     SbVec3f v = point->getPoint();
 
-    //Actualizamos la posicion de la marca
+    //We update the brand positioning
     mark_coord->point.setValue(v);
 
-    //Aseguramos que mark_sep esta colgado de myRoot
+    //Make sure mark_sep is hung from myRoot
  	if (this->pickAction == Ui.actionInfo && myRoot->findChild(mark_sep) < 0) 
        myRoot->addChild(mark_sep);
 
 	QString M, S;
 
-    //Imprimimos las coordenadas del punto 
+    //We print the coordinates of the point
 	S.sprintf("<b>Pick XYZ=</b> %f %f %f", v[0], v[1], v[2]);
 
-    //Imprimimos las coordenadas del punto en la barra del estado y en consola de mensajes
+    //Print the coordinates of the point in the status bar and in the message console.
 	M.sprintf("XYZ= %f %f %f", v[0], v[1], v[2]);
 
 	if (infoAction)
 		global_mw->addMessage(S);
 
-    //Path del objeto apuntado
+    // Path of the pointed object
     SoPath *path = point->getPath()->copy(3,0);
     path->ref();
 
-    //SoNode del objeto apuntado
+    // SoNode del objeto apuntado
     SoNode *nodo = path->getTail();
 
 	//Buscamos el nodo seleccionado en el arbol de mainwindow
